@@ -1,0 +1,8 @@
+*.class
+.svn
+*.iml
+
+# Package Files #
+*.jar
+*.war
+*.ear
