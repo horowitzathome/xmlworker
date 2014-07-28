@@ -1,5 +1,5 @@
 /*
- * $Id: LoadCssThroughLinkStyleTagTest.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: LoadCssThroughLinkStyleTagTest.java 463 2014-06-11 08:52:55Z pavel-alay $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -44,18 +44,10 @@
  */
 package com.itextpdf.tool.xml.html;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.itextpdf.text.log.LoggerFactory;
 import com.itextpdf.text.log.SysoLogger;
 import com.itextpdf.tool.xml.Pipeline;
+import com.itextpdf.tool.xml.Tag;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.css.CssFilesImpl;
 import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
@@ -64,6 +56,14 @@ import com.itextpdf.tool.xml.parser.XMLParser;
 import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author redlab_b
@@ -96,7 +96,7 @@ public class LoadCssThroughLinkStyleTagTest {
 	public void parse1CssFileAndValidate() throws IOException {
 		p.parse(new StringReader(HTML1));
 		Map<String, String> props = new HashMap<String, String>();
-		cssFiles.populateCss(props, "body");
+		cssFiles.populateCss(new Tag("body"), props);
 		Assert.assertTrue(props.containsKey("font-size"));
 		Assert.assertTrue(props.containsKey("color"));
 	}
@@ -104,7 +104,7 @@ public class LoadCssThroughLinkStyleTagTest {
 	public void parse2CsszFileAndValidate() throws IOException {
 		p.parse(new StringReader(HTML2));
 		Map<String, String> props = new HashMap<String, String>();
-		cssFiles.populateCss(props, "body");
+		cssFiles.populateCss(new Tag("body"), props);
 		Assert.assertTrue(props.containsKey("font-size"));
 		Assert.assertTrue(props.containsKey("color"));
 		Assert.assertTrue(props.containsKey("margin-left"));
@@ -116,7 +116,7 @@ public class LoadCssThroughLinkStyleTagTest {
 	public void parse2CsszFilePluseStyleTagAndValidate() throws IOException {
 		p.parse(new StringReader(HTML3));
 		Map<String, String> props = new HashMap<String, String>();
-		cssFiles.populateCss(props, "body");
+		cssFiles.populateCss(new Tag("body"), props);
 		Assert.assertTrue(props.containsKey("font-size"));
 		Assert.assertTrue(props.containsKey("color"));
 		Assert.assertTrue(props.containsKey("margin-left"));

@@ -1,5 +1,5 @@
 /*
- * $Id: CSSFileWrapper.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: CSSFileWrapper.java 479 2014-07-15 13:19:58Z pavel-alay $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -42,6 +42,9 @@
  */
 package com.itextpdf.tool.xml.css;
 
+import com.itextpdf.tool.xml.Tag;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,18 +76,13 @@ public class CSSFileWrapper implements CssFile {
 	 * @see com.itextpdf.tool.xml.css.CssFile#add(java.lang.String,
 	 * java.util.Map)
 	 */
-	public void add(final String selector, final Map<String, String> props) {
+	public boolean add(final String selector, final Map<String, String> props) {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.itextpdf.tool.xml.css.CssFile#get(java.lang.String)
-	 */
-	public Map<String, String> get(final String selector) {
-		return css.get(selector);
-	}
+    public List<CssRule> get(Tag t) {
+        return css.get(t);
+    }
 
 	/*
 	 * (non-Javadoc)

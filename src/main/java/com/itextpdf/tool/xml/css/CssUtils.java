@@ -1,5 +1,5 @@
 /*
- * $Id: CssUtils.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: CssUtils.java 463 2014-06-11 08:52:55Z pavel-alay $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -44,14 +44,18 @@
  */
 package com.itextpdf.tool.xml.css;
 
-import java.text.MessageFormat;
-import java.util.*;
-
 import com.itextpdf.text.html.HtmlTags;
 import com.itextpdf.text.html.WebColors;
 import com.itextpdf.tool.xml.Tag;
 import com.itextpdf.tool.xml.css.apply.MarginMemory;
 import com.itextpdf.tool.xml.exceptions.NoDataException;
+
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author redlab_b

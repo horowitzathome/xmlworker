@@ -1,5 +1,5 @@
 /*
- * $Id: CssStateController.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: CssStateController.java 479 2014-07-15 13:19:58Z pavel-alay $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -42,9 +42,6 @@
  */
 package com.itextpdf.tool.xml.css.parser;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.itextpdf.tool.xml.css.CssFile;
 import com.itextpdf.tool.xml.css.CssUtils;
 import com.itextpdf.tool.xml.css.parser.state.CommentEnd;
@@ -53,6 +50,9 @@ import com.itextpdf.tool.xml.css.parser.state.CommentStart;
 import com.itextpdf.tool.xml.css.parser.state.Properties;
 import com.itextpdf.tool.xml.css.parser.state.Rule;
 import com.itextpdf.tool.xml.css.parser.state.Unknown;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * State controller for CSS Processing
@@ -127,8 +127,17 @@ public class CssStateController {
 		}
 		if (currentSelector.contains(",")) {
 			String[] selectors = currentSelector.split(",");
-			for (String selector : selectors) {
-				css.add(utils.stripDoubleSpacesAndTrim(selector), new HashMap<String, String>(map));
+            //check for rules like p, {…}
+			for (int i = 0; i < selectors.length; i++) {
+                selectors[i] = utils.stripDoubleSpacesAndTrim(selectors[i]);
+                if (selectors[i].length() == 0)
+                    return;
+            }
+            for (String selector : selectors) {
+                //if any separated selector has errors, all others become invalid.
+                //in this case we just clear map, it is the easies way to support this.
+				if (!css.add(selector, map))
+                    map.clear();
 			}
 		} else {
 			css.add(utils.stripDoubleSpacesAndTrim(currentSelector), map);

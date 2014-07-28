@@ -1,5 +1,5 @@
 /*
- * $Id: CssFilesImpl.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: CssFilesImpl.java 479 2014-07-15 13:19:58Z pavel-alay $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV Authors: Balder Van Camp, Emiel
@@ -34,15 +34,15 @@
  */
 package com.itextpdf.tool.xml.css;
 
+import com.itextpdf.tool.xml.Tag;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-
-import com.itextpdf.tool.xml.Tag;
 
 /**
  * @author itextpdf.com
@@ -52,7 +52,6 @@ public class CssFilesImpl implements CssFiles {
 
 	private final List<CssFile> files;
 	private final CssUtils utils;
-	private final CssSelector select;
 
 	/**
      * Constructs a new CssFilesImpl.
@@ -60,7 +59,6 @@ public class CssFilesImpl implements CssFiles {
 	public CssFilesImpl() {
 		this.files = new ArrayList<CssFile>();
 		this.utils = CssUtils.getInstance();
-		this.select = new CssSelector();
 	}
 
 	/**
@@ -93,27 +91,26 @@ public class CssFilesImpl implements CssFiles {
 	 */
 	public Map<String, String> getCSS(final Tag t) {
 		Map<String, String> aggregatedProps = new HashMap<String, String>();
-		Set<String> childSelectors = select.createAllSelectors(t);
-		for (String selector : childSelectors) {
-			populateCss(aggregatedProps, selector);
-		}
+		populateCss(t, aggregatedProps);
 		return aggregatedProps;
 	}
 
-	/**
-	 * @param aggregatedProps the map to put the properties in.
-	 * @param selector the selector to search for.
-	 */
-	public void populateCss(final Map<String, String> aggregatedProps, final String selector) {
-		for (CssFile cssFile : this.files) {
-			populateOneCss(cssFile, aggregatedProps, selector);
-		}
-	}
+    public void populateCss(final Tag t, final Map<String, String> aggregatedProps) {
+        List<CssRule> rules = new ArrayList<CssRule>();
+        for (CssFile cssFile: this.files) {
+            rules.addAll(cssFile.get(t));
+        }
+        Collections.sort(rules);
+        for (CssRule rule: rules)
+            populateOneCss(aggregatedProps, rule.getNormalDeclarations());
+        for (CssRule rule: rules)
+            populateOneCss(aggregatedProps, rule.getImportantDeclarations());
 
-    public void populateOneCss(final CssFile cssFile, final Map<String, String> aggregatedProps, final String selector) {
-        Map<String, String> t = cssFile.get(selector);
+    }
+
+    public void populateOneCss(final Map<String, String> aggregatedProps, final Map<String, String> cssDeclaration) {
         Map<String, String> css = new HashMap<String, String>();
-        for (Entry<String, String> e : t.entrySet()) {
+        for (Entry<String, String> e : cssDeclaration.entrySet()) {
             String key = utils.stripDoubleSpacesTrimAndToLowerCase(e.getKey());
             String value = utils.stripDoubleSpacesAndTrim(e.getValue());
             if (CSS.Property.BORDER.equalsIgnoreCase(key)) {

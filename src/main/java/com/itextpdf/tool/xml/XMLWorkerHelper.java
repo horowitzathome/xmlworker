@@ -1,5 +1,5 @@
 /*
- * $Id: XMLWorkerHelper.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: XMLWorkerHelper.java 463 2014-06-11 08:52:55Z pavel-alay $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -109,8 +109,7 @@ public class XMLWorkerHelper {
                         cssFileProcessor.process(buffer[i]);
                     }
                 }
-                cssFile = new CSSFileWrapper(cssFileProcessor.getCss(),
-                        true);
+                cssFile = new CSSFileWrapper(cssFileProcessor.getCss(), true);
             } catch (final IOException e) { throw new RuntimeWorkerException(e); }
             finally
             { try { in.close(); } catch (final IOException e) { throw new RuntimeWorkerException(e); } }

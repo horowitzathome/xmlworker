@@ -1,5 +1,5 @@
 /*
- * $Id: DivCssApplier.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: DivCssApplier.java 473 2014-07-10 07:50:24Z eugenemark $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -86,13 +86,14 @@ public class DivCssApplier {
             widthValue = t.getAttributes().get(HTML.Attribute.WIDTH);
         }
         if (widthValue != null) {
+            float pageWidth = psc.getPageSize().getWidth();
             if (utils.isNumericValue(widthValue) || utils.isMetricValue(widthValue)) {
-				div.setWidth(utils.parsePxInCmMmPcToPt(widthValue));
+				div.setWidth(Math.min(pageWidth, utils.parsePxInCmMmPcToPt(widthValue)));
             } else if (utils.isRelativeValue(widthValue)) {
                 if (widthValue.contains(CSS.Value.PERCENTAGE)) {
                     div.setPercentageWidth(utils.parseRelativeValue(widthValue, 1f));
                 } else {
-                    div.setWidth(utils.parseRelativeValue(widthValue, fontSize));
+                    div.setWidth(Math.min(pageWidth, utils.parseRelativeValue(widthValue, fontSize)));
                 }
             }
         }

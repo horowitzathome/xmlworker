@@ -1,5 +1,5 @@
 /*
- * $Id: Tags.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: Tags.java 471 2014-07-08 13:22:18Z asubach $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -87,6 +87,7 @@ public class Tags {
 		factory.addProcessor(Tag.P, paragraph);
 		factory.addProcessor(Tag.DT, paragraph);
 		factory.addProcessor(Tag.DD, paragraph);
+        factory.addProcessor(Tag.BLOCKQUOTE, paragraph);
 		factory.addProcessor(Tag.BR, defaultpackage + "Break");
 		factory.addProcessor(Tag.SPAN, span);
 		factory.addProcessor(Tag.SMALL, span);
