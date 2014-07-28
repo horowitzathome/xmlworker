@@ -1,5 +1,5 @@
 /*
- * $Id: StyleAttrCSSResolver.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: StyleAttrCSSResolver.java 454 2014-05-05 14:23:07Z michaeldemey $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -189,23 +189,23 @@ public class StyleAttrCSSResolver implements CSSResolver {
             if(t.getName().equals(HTML.Tag.I) || t.getName().equals(HTML.Tag.CITE)
                     || t.getName().equals(HTML.Tag.EM) || t.getName().equals(HTML.Tag.VAR)
                     || t.getName().equals(HTML.Tag.DFN) || t.getName().equals(HTML.Tag.ADDRESS)) {
-                css.put(CSS.Property.FONT_STYLE, CSS.Value.ITALIC);
+                tagCss.put(CSS.Property.FONT_STYLE, CSS.Value.ITALIC);
             }
             else if (t.getName().equals(HTML.Tag.B) || t.getName().equals(HTML.Tag.STRONG)) {
-                css.put(CSS.Property.FONT_WEIGHT, CSS.Value.BOLD);
+                tagCss.put(CSS.Property.FONT_WEIGHT, CSS.Value.BOLD);
             }
             else if (t.getName().equals(HTML.Tag.U) || t.getName().equals(HTML.Tag.INS)) {
-                css.put(CSS.Property.TEXT_DECORATION, CSS.Value.UNDERLINE);
+                tagCss.put(CSS.Property.TEXT_DECORATION, CSS.Value.UNDERLINE);
             }
             else if (t.getName().equals(HTML.Tag.S) || t.getName().equals(HTML.Tag.STRIKE)
                     || t.getName().equals(HTML.Tag.DEL)) {
-                css.put(CSS.Property.TEXT_DECORATION, CSS.Value.LINE_THROUGH);
+                tagCss.put(CSS.Property.TEXT_DECORATION, CSS.Value.LINE_THROUGH);
             }
             else if (t.getName().equals(HTML.Tag.BIG)){
-                css.put(CSS.Property.FONT_SIZE, CSS.Value.LARGER);
+                tagCss.put(CSS.Property.FONT_SIZE, CSS.Value.LARGER);
             }
             else if (t.getName().equals(HTML.Tag.SMALL)){
-                css.put(CSS.Property.FONT_SIZE, CSS.Value.SMALLER);
+                tagCss.put(CSS.Property.FONT_SIZE, CSS.Value.SMALLER);
             }
         }
 

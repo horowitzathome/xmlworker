@@ -1,5 +1,5 @@
 /*
- * $Id: HTML.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: HTML.java 448 2014-03-05 08:20:59Z michaeldemey $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -73,7 +73,7 @@ public final class HTML {
 
 		public static final String XML = "xml";
 		public static final String THEAD = "thead";
-		public static final String TBODY = "thead";
+		public static final String TBODY = "tbody";
 		public static final String TFOOT = "tfoot";
 		public static final String OL = "ol";
 		public static final String UL = "ul";
