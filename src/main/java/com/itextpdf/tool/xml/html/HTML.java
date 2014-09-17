@@ -1,5 +1,5 @@
 /*
- * $Id: HTML.java 448 2014-03-05 08:20:59Z michaeldemey $
+ * $Id: HTML.java 492 2014-08-20 06:53:00Z eugenemark $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -332,6 +332,7 @@ public final class HTML {
         public static final String FACE  = "face";
         public static final String SIZE  = "size";
         public static final String COLOR  = "color";
+        public static final String START  = "start";
 
 		/**
 		 * Possible attribute values.

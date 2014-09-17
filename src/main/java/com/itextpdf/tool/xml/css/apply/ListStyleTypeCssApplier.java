@@ -1,5 +1,5 @@
 /*
- * $Id: ListStyleTypeCssApplier.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: ListStyleTypeCssApplier.java 492 2014-08-20 06:53:00Z eugenemark $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -213,6 +213,14 @@ public class ListStyleTypeCssApplier {
 		leftIndent += css.get(CSS.Property.MARGIN_LEFT)!=null?utils.parseValueToPt(css.get(CSS.Property.MARGIN_LEFT),fontSize):0;
 		leftIndent += css.get(CSS.Property.PADDING_LEFT)!=null?utils.parseValueToPt(css.get(CSS.Property.PADDING_LEFT),fontSize):0;
 		lst.setIndentationLeft(leftIndent);
+        String startAtr = t.getAttributes().get(HTML.Attribute.START);
+        if (startAtr != null) {
+            try {
+                int start = Integer.parseInt(startAtr);
+                lst.setFirst(start);
+            } catch (NumberFormatException exc) {}
+
+        }
 		return lst;
 	}
 
