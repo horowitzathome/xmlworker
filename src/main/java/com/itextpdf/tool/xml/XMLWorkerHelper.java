@@ -1,5 +1,5 @@
 /*
- * $Id: XMLWorkerHelper.java 463 2014-06-11 08:52:55Z pavel-alay $
+ * $Id: XMLWorkerHelper.java 506 2014-11-30 08:43:09Z blowagie $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -44,10 +44,12 @@ package com.itextpdf.tool.xml;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.FontProvider;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.css.*;
 import com.itextpdf.tool.xml.exceptions.RuntimeWorkerException;
+import com.itextpdf.tool.xml.html.CssAppliers;
 import com.itextpdf.tool.xml.html.CssAppliersImpl;
 import com.itextpdf.tool.xml.html.TagProcessor;
 import com.itextpdf.tool.xml.html.TagProcessorFactory;
@@ -282,4 +284,40 @@ public class XMLWorkerHelper {
 		}
 		return tpf;
 	}
+        
+    /**
+     * Parses an HTML string and a string containing CSS into a list of Element objects.
+     * The FontProvider will be obtained from iText's FontFactory object.
+     * 
+     * @param   html    a String containing an XHTML snippet
+     * @param   css     a String containing CSS
+     * @return  an ElementList instance
+     */
+    public static ElementList parseToElementList(String html, String css) throws IOException {
+        // CSS
+        CSSResolver cssResolver = new StyleAttrCSSResolver();
+        if (css != null) {
+            CssFile cssFile = XMLWorkerHelper.getCSS(new ByteArrayInputStream(css.getBytes()));
+            cssResolver.addCss(cssFile);
+        }
+        
+        // HTML
+        CssAppliers cssAppliers = new CssAppliersImpl(FontFactory.getFontImp());
+        HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
+        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
+        htmlContext.autoBookmark(false);
+        
+        // Pipelines
+        ElementList elements = new ElementList();
+        ElementHandlerPipeline end = new ElementHandlerPipeline(elements, null);
+        HtmlPipeline htmlPipeline = new HtmlPipeline(htmlContext, end);
+        CssResolverPipeline cssPipeline = new CssResolverPipeline(cssResolver, htmlPipeline);
+        
+        // XML Worker
+        XMLWorker worker = new XMLWorker(cssPipeline, true);
+        XMLParser p = new XMLParser(worker);
+        p.parse(new ByteArrayInputStream(html.getBytes()));
+        
+        return elements;
+    }
 }

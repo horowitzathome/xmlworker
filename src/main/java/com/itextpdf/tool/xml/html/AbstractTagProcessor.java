@@ -1,5 +1,5 @@
 /*
- * $Id: AbstractTagProcessor.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: AbstractTagProcessor.java 509 2014-12-11 13:09:29Z blagae $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -38,6 +38,7 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.itextpdf.tool.xml.NoCustomContextException;
 import com.itextpdf.tool.xml.Tag;
@@ -150,6 +151,20 @@ public abstract class AbstractTagProcessor implements TagProcessor, CssAppliersA
 	public List<Element> content(final WorkerContext ctx, final Tag tag, final String content) {
 		return new ArrayList<Element>(0);
 	}
+        
+        protected int getRunDirection(Tag tag) {
+            String dirValue = tag.getCSS().get(CSS.Property.DIR);
+            if (dirValue == null) {
+                dirValue = tag.getAttributes().get(CSS.Property.DIR);
+            }
+            if (CSS.Value.RTL.equalsIgnoreCase(dirValue)) {
+                return PdfWriter.RUN_DIRECTION_RTL;
+            }
+            if (CSS.Value.LTR.equalsIgnoreCase(dirValue)) {
+                return PdfWriter.RUN_DIRECTION_LTR;
+            }
+            return PdfWriter.RUN_DIRECTION_DEFAULT;
+        }
 
     protected List<Element> textContent(final WorkerContext ctx, final Tag tag, final String content) {
 		List<Chunk> sanitizedChunks = HTMLUtils.sanitize(content, false);

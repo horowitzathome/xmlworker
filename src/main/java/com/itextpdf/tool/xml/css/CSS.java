@@ -1,5 +1,5 @@
 /*
- * $Id: CSS.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: CSS.java 503 2014-10-24 21:05:35Z eugenemark $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -144,6 +144,7 @@ public final class CSS {
 		public static final String RIGHT = "right";
 		public static final String BOTTOM = "bottom";
 		public static final String FLOAT = "float";
+        public static final String DIR = "dir";
 	}
 
 	/**
@@ -227,5 +228,7 @@ public final class CSS {
 		public static final String BLOCK = "block";
         public static final String SEPARATE = "separate";
         public static final String COLLAPSE = "collapse";
+        public static final String RTL = "rtl";
+        public static final String LTR = "ltr";
 	}
 }

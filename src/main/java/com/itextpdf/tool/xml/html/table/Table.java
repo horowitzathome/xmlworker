@@ -1,5 +1,5 @@
 /*
- * $Id: Table.java 491 2014-08-12 15:41:25Z eugenemark $
+ * $Id: Table.java 509 2014-12-11 13:09:29Z blagae $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -125,6 +125,7 @@ public class Table extends AbstractTagProcessor {
 			if(widthValue != null && widthValue.trim().endsWith("%")) {
 				percentage = true;
 			}
+
 			int numberOfColumns = 0;
 			List<TableRowElement> tableRows = new ArrayList<TableRowElement>(currentContent.size());
 			List<Element> invalidRowElements = new ArrayList<Element>(1);
@@ -163,6 +164,11 @@ public class Table extends AbstractTagProcessor {
             PdfPTable table = intPdfPTable(numberOfColumns);
             table.setHeaderRows(headerRows + footerRows);
             table.setFooterRows(footerRows);
+            
+            int direction = getRunDirection(tag);
+            if (direction != PdfWriter.RUN_DIRECTION_DEFAULT) {
+                table.setRunDirection(direction);
+            }
             TableStyleValues styleValues = setStyleValues(tag);
             table.setTableEvent(new TableBorderEvent(styleValues));
             setVerticalMargin(table, tag, styleValues, ctx);

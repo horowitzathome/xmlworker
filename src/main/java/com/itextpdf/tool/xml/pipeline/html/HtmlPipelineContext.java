@@ -1,5 +1,5 @@
 /*
- * $Id: HtmlPipelineContext.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: HtmlPipelineContext.java 508 2014-12-08 13:32:40Z blagae $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -272,13 +272,7 @@ public class HtmlPipelineContext implements CustomContext, Cloneable, MarginMemo
         CssAppliers cloneCssApliers = this.cssAppliers.clone();
 		HtmlPipelineContext newCtx = new HtmlPipelineContext(cloneCssApliers);
 		if (this.imageProvider != null) {
-			final String rootPath =  imageProvider.getImageRootPath();
-			newCtx.setImageProvider(new AbstractImageProvider() {
-
-				public String getImageRootPath() {
-					return rootPath;
-				}
-			});
+                    newCtx.setImageProvider(imageProvider);
 		}
 		if (null != this.charset) {
 			newCtx.charSet(Charset.forName(this.charset.name()));

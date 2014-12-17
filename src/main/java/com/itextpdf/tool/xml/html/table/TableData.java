@@ -1,5 +1,5 @@
 /*
- * $Id: TableData.java 493 2014-08-26 09:14:07Z michaeldemey $
+ * $Id: TableData.java 509 2014-12-11 13:09:29Z blagae $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -48,6 +48,7 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.itextpdf.tool.xml.NoCustomContextException;
 import com.itextpdf.tool.xml.Tag;
@@ -92,6 +93,10 @@ public class TableData extends AbstractTagProcessor {
 	public List<Element> end(final WorkerContext ctx, final Tag tag,
 			final List<Element> currentContent) {
 		HtmlCell cell = new HtmlCell();
+                int direction = getRunDirection(tag);
+                if (direction != PdfWriter.RUN_DIRECTION_DEFAULT) {
+                    cell.setRunDirection(direction);
+                }
         try {
             HtmlPipelineContext htmlPipelineContext = getHtmlPipelineContext(ctx);
             cell = (HtmlCell) getCssAppliers().apply(cell, tag, htmlPipelineContext);

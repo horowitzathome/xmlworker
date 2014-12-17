@@ -1,5 +1,5 @@
 /*
- * $Id: Image.java 437 2013-12-23 12:27:00Z blowagie $
+ * $Id: Image.java 504 2014-11-21 11:10:33Z michaeldemey $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -49,6 +49,8 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.log.Level;
 import com.itextpdf.text.log.Logger;
 import com.itextpdf.text.log.LoggerFactory;
+import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfString;
 import com.itextpdf.text.xml.XMLUtil;
 import com.itextpdf.tool.xml.NoCustomContextException;
 import com.itextpdf.tool.xml.Tag;
@@ -114,6 +116,9 @@ public class Image extends AbstractTagProcessor {
 			}
 			if (null != img) {
 				try {
+                    if ( attributes.get(HTML.Attribute.ALT) != null) {
+                        img.setAccessibleAttribute(PdfName.ALT, new PdfString(attributes.get(HTML.Attribute.ALT)));
+                    }
 					HtmlPipelineContext htmlPipelineContext = getHtmlPipelineContext(ctx);
 					l.add(getCssAppliers().apply(new Chunk((com.itextpdf.text.Image) getCssAppliers().apply(img, tag, htmlPipelineContext), 0, 0, true), tag, htmlPipelineContext));
 				} catch (NoCustomContextException e) {

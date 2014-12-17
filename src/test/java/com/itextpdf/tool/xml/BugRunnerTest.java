@@ -1,5 +1,5 @@
 /*
- * $Id: BugRunnerTest.java 440 2014-01-13 13:02:14Z pavel-alay $
+ * $Id: BugRunnerTest.java 510 2014-12-12 06:51:31Z pmitrofanov $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -59,13 +59,12 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.log.LoggerFactory;
 import com.itextpdf.text.log.SysoLogger;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 /**
  *
  */
 public class BugRunnerTest {
-	public static final String RESOURCE_TEST_PATH = "./src/test/resources";
+	public static final String OUT = "./target/test-classes/";
 	private final List<String> list = new ArrayList<String>();
 
 	static {
@@ -89,7 +88,7 @@ public class BugRunnerTest {
 				final Document doc = new Document();
 				PdfWriter writer = null;
 				try {
-					writer = PdfWriter.getInstance(doc, new FileOutputStream(String.format("%s/bugs/%s.pdf", RESOURCE_TEST_PATH, str)));
+					writer = PdfWriter.getInstance(doc, new FileOutputStream(String.format("%s/bugs/%s.pdf", OUT, str)));
 				} catch (DocumentException e) {
 					e.printStackTrace();
 				}

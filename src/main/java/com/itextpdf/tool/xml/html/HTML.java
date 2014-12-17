@@ -1,5 +1,5 @@
 /*
- * $Id: HTML.java 492 2014-08-20 06:53:00Z eugenemark $
+ * $Id: HTML.java 504 2014-11-21 11:10:33Z michaeldemey $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -314,6 +314,7 @@ public final class HTML {
 		private Attribute() {
 		}
 
+        public static final String ALT = "alt";
 		public static final String CELLPADDING = "cellpadding";
 		public static final String CELLSPACING = "cellspacing";
 		public static final String STYLE = "style";

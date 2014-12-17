@@ -1,5 +1,5 @@
 /*
- * $Id: SpecialCharInPDFTest.java 440 2014-01-13 13:02:14Z pavel-alay $
+ * $Id: SpecialCharInPDFTest.java 510 2014-12-12 06:51:31Z pmitrofanov $
  *
  * This file is part of the iText (R) project.
  * Copyright (c) 1998-2014 iText Group NV
@@ -75,7 +75,7 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
  *
  */
 public class SpecialCharInPDFTest {
-    public static final String RESOURCE_TEST_PATH = "./src/test/resources/";
+    public static final String OUT = "./target/test-classes/com/itextpdf/tool/xml/html/";
 	public static final String SNIPPETS = "/snippets/";
 
 	  private static final String TEST = "index_";
@@ -96,7 +96,7 @@ public class SpecialCharInPDFTest {
 		PdfWriter writer = null;
 		try {
             writer = PdfWriter.getInstance(doc, new FileOutputStream(
-                    String.format("%s%s_charset.pdf", RESOURCE_TEST_PATH, TEST)));
+                    String.format("%s%s_charset.pdf", OUT, TEST)));
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
